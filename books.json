@@ -1,0 +1,242 @@
+[
+  {
+    "id": "0001",
+    "title": "Getting Started with AWS",
+    "author": "Amazon Web Services",
+    "year": "-",
+    "pages": "32",
+    "date": "04.08.2025",
+    "description": "AWS'in temel servislerini tanıtan ve giriş seviyesinde resmi bir dokümantasyon.",
+    "filename": "Getting Started with AWS.pdf"
+  },
+  {
+    "id": "0002",
+    "title": "Beginners Guide to AWS Certification",
+    "author": "-",
+    "year": "2021",
+    "pages": "36",
+    "date": "04.08.2025",
+    "description": "AWS sertifikasyon sınavına hazırlık için kavramları ve sınav sürecini özetler.",
+    "filename": "Beginners+Guide+to+AWS+Certification+2021.pdf"
+  },
+  {
+    "id": "0003",
+    "title": "Blockchain for Dummies",
+    "author": "Manav Gupta",
+    "year": "-",
+    "pages": "51",
+    "date": "04.08.2025",
+    "description": "Blockchain teknolojisinin mantığını, işleyişini ve kullanım senaryolarını açıklıyor.",
+    "filename": "Blockchain-dummies.pdf"
+  },
+  {
+    "id": "0004",
+    "title": "Data Science and Big Data Analytics",
+    "author": "EMC Education Services",
+    "year": "-",
+    "pages": "474",
+    "date": "04.08.2025",
+    "description": "Veri bilimi ve büyük veri analitiğinin yöntemlerini, araçlarını ve uygulamalarını sistematik olarak öğretiyor.",
+    "filename": "Data Science and Big Data Analytics – 474sf – EMC Education Services.pdf"
+  },
+  {
+    "id": "0005",
+    "title": "Understanding Deep Learning",
+    "author": "Simon J.D. Prince",
+    "year": "2025",
+    "pages": "541",
+    "date": "04.08.2025",
+    "description": "Derin öğrenmenin matematiksel temellerini, modellerini ve pratik uygulamalarını derinlemesine ele alıyor.",
+    "filename": "Understanding Deep Learning.2025.pdf"
+  },
+  {
+    "id": "0006",
+    "title": "Amazon Web Services Tutorial",
+    "author": "tutorialspoint simplyeasylearning",
+    "year": "-",
+    "pages": "126",
+    "date": "04.08.2025",
+    "description": "AWS hizmetlerine yönelik pratik ders notları ve örnekler sunuyor.",
+    "filename": "AWS Tutorial.pdf"
+  },
+  {
+    "id": "0007",
+    "title": "Maritime Cybersecurity",
+    "author": "Sanja Bauk (Editor)",
+    "year": "2025",
+    "pages": "249",
+    "date": "04.08.2025",
+    "description": "Denizcilik sektöründe siber güvenlik risklerini, tehditleri ve çözüm yaklaşımlarını inceliyor.",
+    "filename": "Maritime-Cybersecurity.pdf"
+  },
+  {
+    "id": "0008",
+    "title": "Coding Theory Essentials",
+    "author": "Dinesh G. Harkut and Kashmira N. Kasat",
+    "year": "2023",
+    "pages": "232",
+    "date": "04.08.2025",
+    "description": "Kodlama teorisinin temel kavramlarını, matematiksel temellerini ve modern uygulamalarını açıklıyor.",
+    "filename": ""
+  },
+  {
+    "id": "0009",
+    "title": "Deep Learning Applications",
+    "author": "Pier Luigi Mazzeo and Paolo Spagnolo",
+    "year": "2021",
+    "pages": "216",
+    "date": "04.08.2025",
+    "description": "Derin öğrenmenin farklı alanlardaki (görüntü, metin, sinyal vb.) uygulamalarına örnekler sunuyor.",
+    "filename": ""
+  },
+  {
+    "id": "0010",
+    "title": "Ethical Hacking",
+    "author": "Alana Maurushat",
+    "year": "2019",
+    "pages": "370",
+    "date": "04.08.2025",
+    "description": "Etik hackerlık yöntemlerini, güvenlik testlerini ve siber güvenlikte etik sınırları anlatıyor.",
+    "filename": "vdoc.pub_ethical-hacking.pdf"
+  },
+  {
+    "id": "0011",
+    "title": "The Datacenter as a Computer: Designing Warehouse-Scale Machines",
+    "author": "Luiz André Barroso, Urs Hölzle & Parthasarathy Ranganathan",
+    "year": "2019",
+    "pages": "201",
+    "date": "04.08.2025",
+    "description": "Büyük ölçekli veri merkezlerinin mimarisini ve bulut çağında tasarım prensiplerini açıklıyor.",
+    "filename": "The Datacenter as a Computer - Designing Warehouse-Scale Machines, Third Edition – 2019, 201SF.pdf"
+  },
+  {
+    "id": "0012",
+    "title": "NGINX Cookbook",
+    "author": "Derek DeJonghe",
+    "year": "2024",
+    "pages": "207",
+    "date": "04.08.2025",
+    "description": "NGINX ile web sunucusu, load balancing ve performans optimizasyonu için pratik tarifler sunuyor.",
+    "filename": "NGINX_Cookbook-final.pdf"
+  },
+  {
+    "id": "0013",
+    "title": "Understanding Large Language Models",
+    "author": "Jenny Kunz",
+    "year": "2024",
+    "pages": "109",
+    "date": "04.08.2025",
+    "description": "Büyük dil modellerinin nasıl çalıştığını, kullanım alanlarını ve sınırlarını anlatıyor.",
+    "filename": "Understanding Large Language Models – jENNY kUNZ- 109SF- 2024.PDF"
+  },
+  {
+    "id": "0014",
+    "title": "Today's TBB: C++ Parallel Programming with Threading Building Blocks",
+    "author": "Michael J. Voss & James R. Reinders",
+    "year": "2025",
+    "pages": "507",
+    "date": "04.08.2025",
+    "description": "C++ ile paralel programlama için Intel'in TBB kütüphanesini kapsamlı biçimde öğretiyor.",
+    "filename": "Today's TBB C++ Parallel Programming with Threading Building Blocks, Second Edition.pdf"
+  },
+  {
+    "id": "0015",
+    "title": "Financial Machine Learning",
+    "author": "Bryan T. Kelly and Dacheng Xiu",
+    "year": "2023",
+    "pages": "161",
+    "date": "04.08.2025",
+    "description": "Makine öğrenmesinin finans piyasalarındaki veri analizi ve öngörü süreçlerine uygulanışını inceliyor.",
+    "filename": "Financial Machine Learning Bryan T. Kelly and Dacheng Xiu JULY 2023.pdf"
+  },
+  {
+    "id": "0016",
+    "title": "Learning Go: An Idiomatic Approach to Real-World Go Programming",
+    "author": "Vladimir Vivien",
+    "year": "2016",
+    "pages": "340",
+    "date": "04.08.2025",
+    "description": "Go programlama dilini gerçek dünyadaki projelerde kullanılacak en iyi pratiklerle öğretiyor.",
+    "filename": "vdoc.pub_learning-go-programming.pdf"
+  },
+  {
+    "id": "0017",
+    "title": "Beginning ReactJS Foundations: Building User Interfaces with ReactJS",
+    "author": "Chris Minnick",
+    "year": "2022",
+    "pages": "508",
+    "date": "04.08.2025",
+    "description": "ReactJS ile kullanıcı arayüzü geliştirmeyi adım adım anlatan giriş seviyesi bir kaynak.",
+    "filename": "Beginning ReactJS Foundations Building User Interfaces with ReactJS An Approachable Guide Chris Minnick.pdf"
+  },
+  {
+    "id": "0018",
+    "title": "Go Programming By Example",
+    "author": "-",
+    "year": "-",
+    "pages": "-",
+    "date": "04.08.2025",
+    "description": "Go programlama dilini örneklerle öğreten pratik bir kaynak.",
+    "filename": "Go Programming By Example.pdf"
+  },
+  {
+    "id": "0019",
+    "title": "Blockchain Easiest Ultimate Guide",
+    "author": "-",
+    "year": "-",
+    "pages": "-",
+    "date": "04.08.2025",
+    "description": "Blockchain teknolojisini anlamak için en kolay ve kapsamlı rehber.",
+    "filename": "vdoc.pub_blockchain-easiest-ultimate-guide-to-understand-blockchain.pdf"
+  },
+  {
+    "id": "0020",
+    "title": "Game Programming Patterns",
+    "author": "-",
+    "year": "-",
+    "pages": "-",
+    "date": "04.08.2025",
+    "description": "Oyun programlama için tasarım desenleri ve en iyi pratikler.",
+    "filename": "vdoc.pub_game-programming-patterns.pdf"
+  },
+  {
+    "id": "0021",
+    "title": "Implementing DevOps on AWS",
+    "author": "-",
+    "year": "-",
+    "pages": "-",
+    "date": "04.08.2025",
+    "description": "AWS üzerinde DevOps uygulamalarını gerçekleştirme rehberi.",
+    "filename": "vdoc.pub_implementing-devops-on-aws.pdf"
+  },
+  {
+    "id": "0022",
+    "title": "Learning Amazon Web Services (AWS)",
+    "author": "-",
+    "year": "-",
+    "pages": "-",
+    "date": "04.08.2025",
+    "description": "AWS temellerini öğrenmek için uygulamalı rehber.",
+    "filename": "vdoc.pub_learning-amazon-web-services-aws-a-hands-on-guide-to-the-fundamentals-of-aws-cloud.epub"
+  },
+  {
+    "id": "0023",
+    "title": "Practical DevOps",
+    "author": "-",
+    "year": "-",
+    "pages": "-",
+    "date": "04.08.2025",
+    "description": "DevOps pratiklerini gerçek projelerde uygulama rehberi.",
+    "filename": "vdoc.pub_practical-devops.pdf"
+  },
+  {
+    "id": "0024",
+    "title": "A Quick Guide to C# with Unity",
+    "author": "-",
+    "year": "-",
+    "pages": "-",
+    "date": "04.08.2025",
+    "description": "Unity ile C# programlama için hızlı başlangıç rehberi.",
+    "filename": "A Quick Guide to C# with Unity.pdf"
+  }
+]

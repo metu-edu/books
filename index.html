@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title id="pageTitle">Kitap Listesi</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="version" content="2025-01-15-v2">
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #334155;
+            line-height: 1.5;
+            font-size: 13px;
+            font-weight: 400;
+        }
+        
+        .container {
+            width: 100%;
+            margin: 0;
+            background: white;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 20px;
+            border: none;
+            min-height: 100vh;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+                padding: 15px;
+                border-radius: 0;
+            }
+            
+            .header h1 {
+                font-size: 18px;
+                line-height: 1.3;
+            }
+            
+            .language-switcher {
+                position: static;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .download-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .btn-download-all {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            table {
+                font-size: 11px;
+            }
+            
+            th, td {
+                padding: 8px 4px;
+            }
+            
+            .book-title {
+                font-size: 11px;
+            }
+            
+            .book-description {
+                font-size: 10px;
+                line-height: 1.3;
+            }
+            
+            .btn-download-single {
+                width: 28px;
+                height: 28px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                margin: 0;
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 16px;
+            }
+            
+            .lang-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+            
+            table {
+                font-size: 10px;
+            }
+            
+            th, td {
+                padding: 6px 2px;
+            }
+            
+            .book-title {
+                font-size: 10px;
+            }
+            
+            .book-description {
+                font-size: 9px;
+            }
+            
+            .btn-download-single {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .btn-download-all {
+                font-size: 10px;
+                padding: 8px 12px;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #3b82f6;
+            position: relative;
+        }
+        
+        .header h1 {
+            color: #1e293b;
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .header p {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 400;
+        }
+        
+        .language-switcher {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 4px;
+        }
+        
+        .lang-btn {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #64748b;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .lang-btn:hover {
+            background: #e2e8f0;
+            color: #475569;
+        }
+        
+        .lang-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .search-box {
+            flex: 1;
+            max-width: 280px;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 12px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 6px 10px 6px 28px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 400;
+            background: white;
+            transition: all 0.2s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-box .clear-btn {
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 2px;
+            display: none;
+        }
+        
+        .search-box .clear-btn:hover {
+            color: #ef4444;
+        }
+        
+        .date-filter {
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .date-filter label {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .date-filter select {
+            padding: 6px 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 11px;
+            background: white;
+            color: #64748b;
+        }
+        
+        .btn-download-all {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .btn-download-all:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+        
+        .btn-download-single {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+        
+        .btn-download-single:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        /* Ensure download column is always visible on mobile */
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            th:last-child,
+            td:last-child {
+                position: sticky;
+                right: 0;
+                background: white;
+                z-index: 10;
+                box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            }
+            
+            th:last-child {
+                background: linear-gradient(135deg, #1e293b, #334155);
+            }
+        }
+        
+        /* DataTables FixedColumns styling */
+        .DTFC_RightWrapper {
+            border-left: 2px solid #e2e8f0;
+        }
+        
+        .DTFC_RightWrapper table {
+            box-shadow: none;
+        }
+        
+        .DTFC_RightWrapper th {
+            background: linear-gradient(135deg, #1e293b, #334155) !important;
+        }
+        
+        th, td {
+            padding: 8px 6px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 12px;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        tbody tr {
+            transition: all 0.2s;
+        }
+        
+        tbody tr:hover {
+            background: #f8fafc;
+            transform: scale(1.001);
+        }
+        
+        
+        .book-title {
+            font-weight: 500;
+            color: #1e293b;
+            font-size: 12px;
+        }
+
+        .title-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 8px;
+        }
+
+        .btn-inspect-inline {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            color: inherit; /* same color as text */
+            cursor: pointer;
+        }
+
+        .btn-inspect-inline i {
+            font-size: 12px;
+            color: currentColor; /* inherit text color */
+        }
+        
+        .book-author {
+            color: #64748b;
+            font-size: 11px;
+            font-style: italic;
+            font-weight: 400;
+        }
+        
+        .book-description {
+            color: #475569;
+            font-size: 11px;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+        
+        /* DataTables customization */
+        .dataTables_wrapper {
+            margin-top: 8px;
+        }
+        
+        .dataTables_filter {
+            display: none; /* Hide default search since we have custom one */
+        }
+        
+        .dataTables_length {
+            margin-bottom: 8px;
+        }
+        
+        .dataTables_length select {
+            padding: 3px 6px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            margin: 0 4px;
+            font-size: 11px;
+            background: white;
+        }
+        
+        .dataTables_info {
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 8px;
+        }
+        
+        .dataTables_paginate {
+            margin-top: 8px;
+        }
+        
+        .dataTables_paginate .paginate_button {
+            padding: 4px 8px;
+            margin: 0 1px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            background: white;
+            color: #475569;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+        
+        .dataTables_paginate .paginate_button:hover {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+        
+        .dataTables_paginate .paginate_button.current {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .dataTables_paginate .paginate_button.disabled {
+            color: #cbd5e1;
+            cursor: not-allowed;
+            background: #f8fafc;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            padding: 12px 0;
+            border-top: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .stat-item i {
+            color: #3b82f6;
+            font-size: 12px;
+        }
+        
+        .stat-item span:first-of-type {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .stat-item span:last-of-type {
+            font-size: 10px;
+            color: #64748b;
+        }
+        
+        @media (max-width: 768px) {
+            .stats {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                padding: 4px 8px;
+            }
+            
+            .stat-item span:first-of-type {
+                font-size: 12px;
+            }
+            
+            .stat-item span:last-of-type {
+                font-size: 9px;
+            }
+        }
+        
+        /* Feedback Modal Styles */
+        .feedback-trigger {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .feedback-trigger:hover {
+            background: #f0f9ff !important;
+            border-color: #3b82f6 !important;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: #1e293b;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .close {
+            color: #64748b;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .close:hover {
+            color: #ef4444;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-body p {
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #374151;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 12px;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .btn-cancel,
+        .btn-submit {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-cancel {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .btn-cancel:hover {
+            background: #e5e7eb;
+        }
+        
+        .btn-submit {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background: #2563eb;
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+            
+            .modal-header,
+            .modal-body {
+                padding: 15px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn-cancel,
+            .btn-submit {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="mainTitle">Kitap Koleksiyonu - Teknoloji ve Programlama Kitapları</h1>
+            <div class="language-switcher">
+                <button class="lang-btn active" onclick="switchLanguage('tr')">TR</button>
+                <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Kitap, yazar, yıl veya açıklama ara...">
+                <button class="clear-btn" id="clearSearch" onclick="clearSearch()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="download-buttons">
+                <div class="date-filter">
+                    <label id="dateFilterLabel">Eklenme:</label>
+                    <select id="dateFilter" onchange="filterByDate()">
+                        <option value="">Tüm Tarihler</option>
+                    </select>
+                </div>
+                <button class="btn-download-all" onclick="downloadAllList('csv')">
+                    <i class="fas fa-file-csv"></i>
+                    <span id="btnCsv">CSV İndir</span>
+                </button>
+                <button class="btn-download-all" onclick="downloadAllList('pdf')">
+                    <i class="fas fa-file-pdf"></i>
+                    <span id="btnPdf">PDF İndir</span>
+                </button>
+            </div>
+        </div>
+        
+        <table id="booksTable">
+            <thead>
+                <tr>
+                    <th id="thNo">No</th>
+                    <th id="thTitle">Kitap Adı</th>
+                    <th id="thAuthor">Yazar</th>
+                    <th id="thYear">Yıl</th>
+                    <th id="thPages">Sayfa</th>
+                    <th id="thDate">Eklenme</th>
+                    <th id="thDescription">Açıklama</th>
+                    <th id="thDownload">İndir</th>
+                </tr>
+            </thead>
+            <tbody id="booksTableBody">
+                <!-- Data will be loaded from JSON file -->
+            </tbody>
+        </table>
+        
+        <div class="footer">
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-download"></i>
+                    <span id="totalDownloads">0</span>
+                    <span id="totalDownloadsText">Toplam İndirme</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-book"></i>
+                    <span id="totalBooks">23</span>
+                    <span id="totalBooksText">Kitap</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-calendar"></i>
+                    <span id="lastUpdate">04.08.2025</span>
+                    <span id="lastUpdateText">Son Güncelleme</span>
+                </div>
+                <div class="stat-item feedback-trigger" onclick="openFeedbackModal()">
+                    <i class="fas fa-lightbulb"></i>
+                    <span id="feedbackText">Sistemi Geliştir</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feedback Modal -->
+        <div id="feedbackModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Sistemi Geliştirme Önerisi</h3>
+                    <span class="close" onclick="closeFeedbackModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">Bu sistemi geliştirmek istediğinizi belirtmek için aşağıdaki formu doldurabilirsiniz. Önerileriniz local olarak saklanacak ve geliştirici tarafından değerlendirilecektir.</p>
+                    <form id="feedbackForm">
+                        <div class="form-group">
+                            <label for="feedbackName" id="nameLabel">İsim (İsteğe Bağlı):</label>
+                            <input type="text" id="feedbackName" placeholder="İsminizi yazabilirsiniz...">
+                        </div>
+                        <div class="form-group">
+                            <label for="feedbackMessage" id="messageLabel">Geliştirme Önerisi:</label>
+                            <textarea id="feedbackMessage" rows="4" placeholder="Sistemi nasıl geliştirebileceğimizi düşünüyorsunuz? Hangi özellikler eklenmeli?"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" onclick="closeFeedbackModal()" class="btn-cancel">İptal</button>
+                            <button type="submit" class="btn-submit">Gönder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+
+    <script>
+        // Books data embedded directly in JavaScript
+        const booksData = [
+            {
+                "id": "0001",
+                "title": "Getting Started with AWS",
+                "author": "Amazon Web Services",
+                "year": "-",
+                "pages": "32",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "AWS'in temel servislerini tanıtan ve giriş seviyesinde resmi bir dokümantasyon.",
+                    "en": "Official documentation introducing AWS basic services for beginners."
+                },
+                "filename": "getting-started-with-aws-amazon-web-services-32-sayfa.pdf"
+            },
+            {
+                "id": "0002",
+                "title": "Beginners Guide to AWS Certification",
+                "author": "Neal Davis",
+                "year": "2021",
+                "pages": "36",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "AWS sertifikasyon sınavına hazırlık için kavramları ve sınav sürecini özetler.",
+                    "en": "Summarizes concepts and exam process for AWS certification preparation."
+                },
+                "filename": "beginners-guide-to-aws-certification-neal-davis-2021-36-sayfa.pdf"
+            },
+            {
+                "id": "0003",
+                "title": "Blockchain for Dummies",
+                "author": "Manav Gupta",
+                "year": "2018",
+                "pages": "51",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Blockchain teknolojisinin mantığını, işleyişini ve kullanım senaryolarını açıklıyor.",
+                    "en": "Explains the logic, operation and use cases of blockchain technology."
+                },
+                "filename": "blockchain-for-dummies-manav-gupta-2018-51-sayfa.pdf"
+            },
+            {
+                "id": "0004",
+                "title": "Data Science and Big Data Analytics",
+                "author": "EMC Education Services",
+                "year": "2015",
+                "pages": "474",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Veri bilimi ve büyük veri analitiğinin yöntemlerini, araçlarını ve uygulamalarını sistematik olarak öğretiyor.",
+                    "en": "Systematically teaches methods, tools and applications of data science and big data analytics."
+                },
+                "filename": "data-science-and-big-data-analytics-emc-education-services-2015-474-sayfa.pdf"
+            },
+            {
+                "id": "0005",
+                "title": "Understanding Deep Learning",
+                "author": "Simon J.D. Prince",
+                "year": "2025",
+                "pages": "541",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Derin öğrenmenin matematiksel temellerini, modellerini ve pratik uygulamalarını derinlemesine ele alıyor.",
+                    "en": "Comprehensively covers mathematical foundations, models and practical applications of deep learning."
+                },
+                "filename": "understanding-deep-learning-simon-jd-prince-2025-541-sayfa.pdf"
+            },
+            {
+                "id": "0006",
+                "title": "Amazon Web Services (AWS) Tutorial",
+                "author": "Tutorials Point (I) Pvt. Ltd.",
+                "year": "2017",
+                "pages": "126",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "AWS hizmetlerine yönelik pratik ders notları ve örnekler sunuyor.",
+                    "en": "Provides practical lesson notes and examples for AWS services."
+                },
+                "filename": "amazon-web-services-aws-tutorial-tutorials-point-2017-126-sayfa.pdf"
+            },
+            {
+                "id": "0007",
+                "title": "Maritime Cybersecurity",
+                "author": "Sanja Bauk (Editor)",
+                "year": "2025",
+                "pages": "249",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Denizcilik sektöründe siber güvenlik risklerini, tehditleri ve çözüm yaklaşımlarını inceliyor.",
+                    "en": "Examines cybersecurity risks, threats and solution approaches in the maritime sector."
+                },
+                "filename": "maritime-cybersecurity-sanja-bauk-2025-249-sayfa.pdf"
+            },
+            {
+                "id": "0008",
+                "title": "Coding Theory Essentials",
+                "author": "Dinesh G. Harkut and Kashmira N. Kasat",
+                "year": "2023",
+                "pages": "154",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Kodlama teorisinin temel kavramlarını, matematiksel temellerini ve modern uygulamalarını açıklıyor.",
+                    "en": "Explains basic concepts, mathematical foundations and modern applications of coding theory."
+                },
+                "filename": "coding-theory-essentials-dinesh-harkut-kashmira-kasat-2023-154-sayfa.pdf"
+            },
+            {
+                "id": "0009",
+                "title": "Deep Learning Applications",
+                "author": "Pier Luigi Mazzeo and Paolo Spagnolo",
+                "year": "2021",
+                "pages": "216",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Derin öğrenmenin farklı alanlardaki (görüntü, metin, sinyal vb.) uygulamalarına örnekler sunuyor.",
+                    "en": "Provides examples of deep learning applications in different fields (image, text, signal, etc.)."
+                },
+                "filename": "deep-learning-applications-pier-luigi-mazzeo-paolo-spagnolo-2021-216-sayfa.pdf"
+            },
+            {
+                "id": "0010",
+                "title": "Ethical Hacking",
+                "author": "Alana Maurushat",
+                "year": "2019",
+                "pages": "370",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Etik hackerlık yöntemlerini, güvenlik testlerini ve siber güvenlikte etik sınırları anlatıyor.",
+                    "en": "Explains ethical hacking methods, security testing and ethical boundaries in cybersecurity."
+                },
+                "filename": "ethical-hacking-alana-maurushat-2019-370-sayfa.pdf"
+            },
+            {
+                "id": "0011",
+                "title": "The Datacenter as a Computer: Designing Warehouse-Scale Machines",
+                "author": "Luiz André Barroso, Urs Hölzle & Parthasarathy Ranganathan",
+                "year": "2019",
+                "pages": "201",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Büyük ölçekli veri merkezlerinin mimarisini ve bulut çağında tasarım prensiplerini açıklıyor.",
+                    "en": "Explains the architecture of large-scale data centers and design principles in the cloud era."
+                },
+                "filename": "datacenter-as-computer-designing-warehouse-scale-machines-luiz-andre-barroso-2019-201-sayfa.pdf"
+            },
+            {
+                "id": "0012",
+                "title": "NGINX Cookbook",
+                "author": "Derek DeJonghe",
+                "year": "2024",
+                "pages": "207",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "NGINX ile web sunucusu, load balancing ve performans optimizasyonu için pratik tarifler sunuyor.",
+                    "en": "Provides practical recipes for web server, load balancing and performance optimization with NGINX."
+                },
+                "filename": "nginx-cookbook-derek-dejonghe-2024-207-sayfa.pdf"
+            },
+            {
+                "id": "0013",
+                "title": "Understanding Large Language Models: Towards Rigorous and Targeted Interpretability Using Probing Classifiers and Self-Rationalisation",
+                "author": "Jenny Kunz",
+                "year": "2024",
+                "pages": "109",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Büyük dil modellerinin yorumlanabilirliğini, probing sınıflandırıcıları ve kendi kendine gerekçelendirme yöntemlerini kullanarak derinlemesine inceliyor.",
+                    "en": "Deeply examines the interpretability of large language models using probing classifiers and self-rationalisation methods."
+                },
+                "filename": "understanding-large-language-models-jenny-kunz-2024-109-sayfa.pdf"
+            },
+            {
+                "id": "0014",
+                "title": "Today's TBB: C++ Parallel Programming with Threading Building Blocks",
+                "author": "Michael J. Voss & James R. Reinders",
+                "year": "2025",
+                "pages": "507",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "C++ ile paralel programlama için Intel'in TBB kütüphanesini kapsamlı biçimde öğretiyor.",
+                    "en": "Comprehensively teaches Intel's TBB library for parallel programming with C++."
+                },
+                "filename": "todays-tbb-cpp-parallel-programming-threading-building-blocks-michael-voss-2025-507-sayfa.pdf"
+            },
+            {
+                "id": "0015",
+                "title": "Financial Machine Learning",
+                "author": "Bryan T. Kelly and Dacheng Xiu",
+                "year": "2023",
+                "pages": "161",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Makine öğrenmesinin finans piyasalarındaki veri analizi ve öngörü süreçlerine uygulanışını inceliyor.",
+                    "en": "Examines the application of machine learning to data analysis and prediction processes in financial markets."
+                },
+                "filename": "financial-machine-learning-bryan-kelly-dacheng-xiu-2023-161-sayfa.pdf"
+            },
+            {
+                "id": "0016",
+                "title": "Learning Go: An Idiomatic Approach to Real-World Go Programming",
+                "author": "Vladimir Vivien",
+                "year": "2016",
+                "pages": "340",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Go programlama dilini gerçek dünyadaki projelerde kullanılacak en iyi pratiklerle öğretiyor.",
+                    "en": "Teaches the Go programming language with best practices for use in real-world projects."
+                },
+                "filename": "learning-go-idiomatic-approach-real-world-go-programming-vladimir-vivien-2016-340-sayfa.pdf"
+            },
+            {
+                "id": "0017",
+                "title": "Beginning ReactJS Foundations: Building User Interfaces with ReactJS",
+                "author": "Chris Minnick",
+                "year": "2022",
+                "pages": "508",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "ReactJS ile kullanıcı arayüzü geliştirmeyi adım adım anlatan giriş seviyesi bir kaynak.",
+                    "en": "A beginner-level resource that explains user interface development with ReactJS step by step."
+                },
+                "filename": "beginning-reactjs-foundations-building-user-interfaces-chris-minnick-2022-508-sayfa.pdf"
+            },
+            {
+                "id": "0018",
+                "title": "Go Programming By Example",
+                "author": "Agus Kurniawan",
+                "year": "2015",
+                "pages": "165",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Go programlama dilini örneklerle öğreten pratik bir kaynak.",
+                    "en": "A practical resource that teaches the Go programming language with examples."
+                },
+                "filename": "go-programming-by-example-agus-kurniawan-2015-165-sayfa.pdf"
+            },
+            {
+                "id": "0019",
+                "title": "Blockchain Easiest Ultimate Guide To Understand Blockchain",
+                "author": "Jared Norton",
+                "year": "2016",
+                "pages": "41",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Blockchain teknolojisini anlamak için en kolay ve kapsamlı rehber.",
+                    "en": "The easiest and most comprehensive guide to understanding blockchain technology."
+                },
+                "filename": "blockchain-easiest-ultimate-guide-to-understand-blockchain-jared-norton-2016-41-sayfa.pdf"
+            },
+            {
+                "id": "0020",
+                "title": "Game Programming Patterns",
+                "author": "Robert Nystrom",
+                "year": "2014",
+                "pages": "380",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Oyun programlama için tasarım desenleri ve en iyi pratikler.",
+                    "en": "Design patterns and best practices for game programming."
+                },
+                "filename": "game-programming-patterns-robert-nystrom-2014-380-sayfa.pdf"
+            },
+            {
+                "id": "0021",
+                "title": "Implementing DevOps on AWS",
+                "author": "Veselin Kantsev",
+                "year": "2017",
+                "pages": "251",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "AWS üzerinde DevOps uygulamalarını gerçekleştirme rehberi.",
+                    "en": "Guide to implementing DevOps practices on AWS."
+                },
+                "filename": "implementing-devops-on-aws-veselin-kantsev-2017-251-sayfa.pdf"
+            },
+            {
+                "id": "0022",
+                "title": "Practical DevOps",
+                "author": "Joakim Verona",
+                "year": "2016",
+                "pages": "240",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "DevOps pratiklerini gerçek projelerde uygulama rehberi.",
+                    "en": "Guide to applying DevOps practices in real projects."
+                },
+                "filename": "practical-devops-joakim-verona-2016-240-sayfa.pdf"
+            },
+            {
+                "id": "0023",
+                "title": "Learning C# by Developing Games with Unity 3D",
+                "author": "Terry Norton",
+                "year": "2013",
+                "pages": "127",
+                "date": "04.08.2025",
+                "description": {
+                    "tr": "Unity 3D ile oyun geliştirerek C# programlama dilini öğreten kapsamlı rehber.",
+                    "en": "Comprehensive guide teaching C# programming language by developing games with Unity 3D."
+                },
+                "filename": "learning-csharp-by-developing-games-with-unity-3d-terry-norton-2013-127-sayfa.pdf"
+            }
+        ];
+
+        // Language data
+        const translations = {
+            tr: {
+                pageTitle: "Kitap Listesi",
+                title: "Kitap Koleksiyonu - Teknoloji ve Programlama Kitapları",
+                searchPlaceholder: "Kitap, yazar, yıl veya açıklama ara...",
+                no: "No",
+                titleCol: "Kitap Adı",
+                author: "Yazar",
+                year: "Yıl",
+                pages: "Sayfa",
+                date: "Eklenme",
+                description: "Açıklama",
+                download: "İndir",
+                csvDownload: "CSV İndir",
+                pdfDownload: "PDF İndir",
+                allDates: "Tüm Tarihler",
+                dateLabel: "Eklenme:",
+                totalDownloads: "Toplam İndirme",
+                totalBooks: "Kitap",
+                lastUpdate: "Son Güncelleme",
+                feedbackText: "Sistemi Geliştir",
+                modalTitle: "Sistemi Geliştirme Önerisi",
+                modalMessage: "Bu sistemi geliştirmek istediğinizi belirtmek için aşağıdaki formu doldurabilirsiniz. Önerileriniz local olarak saklanacak ve geliştirici tarafından değerlendirilecektir.",
+                nameLabel: "İsim (İsteğe Bağlı):",
+                namePlaceholder: "İsminizi yazabilirsiniz...",
+                messageLabel: "Geliştirme Önerisi:",
+                messagePlaceholder: "Sistemi nasıl geliştirebileceğimizi düşünüyorsunuz? Hangi özellikler eklenmeli?",
+                cancelBtn: "İptal",
+                submitBtn: "Gönder",
+                successMessage: "Öneriniz başarıyla kaydedildi! Teşekkürler."
+            },
+            en: {
+                pageTitle: "Book List",
+                title: "Book Collection - Technology and Programming Books",
+                searchPlaceholder: "Search books, authors, year or description...",
+                no: "No",
+                titleCol: "Book Title",
+                author: "Author",
+                year: "Year",
+                pages: "Pages",
+                date: "Added",
+                description: "Description",
+                download: "Download",
+                csvDownload: "Download CSV",
+                pdfDownload: "Download PDF",
+                allDates: "All Dates",
+                dateLabel: "Added:",
+                totalDownloads: "Total Downloads",
+                totalBooks: "Books",
+                lastUpdate: "Last Update",
+                feedbackText: "Improve System",
+                modalTitle: "System Improvement Suggestion",
+                modalMessage: "You can fill out the form below to indicate that you want to improve this system. Your suggestions will be stored locally and evaluated by the developer.",
+                nameLabel: "Name (Optional):",
+                namePlaceholder: "You can write your name...",
+                messageLabel: "Improvement Suggestion:",
+                messagePlaceholder: "How do you think we can improve this system? What features should be added?",
+                cancelBtn: "Cancel",
+                submitBtn: "Submit",
+                successMessage: "Your suggestion has been saved successfully! Thank you."
+            }
+        };
+
+        let currentLanguage = 'tr';
+
+        // Download statistics functions
+        let globalDownloadStats = {
+            totalDownloads: 0,
+            bookDownloads: {}
+        };
+        
+        function getDownloadStats() {
+            const stats = localStorage.getItem('bookDownloadStats');
+            return stats ? JSON.parse(stats) : {};
+        }
+        
+        function saveDownloadStats(stats) {
+            localStorage.setItem('bookDownloadStats', JSON.stringify(stats));
+        }
+        
+        function incrementDownloadCount(bookId) {
+            const stats = getDownloadStats();
+            stats[bookId] = (stats[bookId] || 0) + 1;
+            saveDownloadStats(stats);
+            updateDownloadStats();
+            
+            // Check if we should sync with server
+            const totalLocalDownloads = Object.values(stats).reduce((sum, count) => sum + count, 0);
+            if (totalLocalDownloads % 10 === 0) {
+                syncDownloadStats(stats);
+            }
+        }
+        
+        function updateDownloadStats() {
+            // Use global stats (from server) if available, otherwise local
+            const totalDownloads = globalDownloadStats.totalDownloads || 
+                Object.values(getDownloadStats()).reduce((sum, count) => sum + count, 0);
+            document.getElementById('totalDownloads').textContent = totalDownloads;
+        }
+        
+        // Load download stats from server
+        async function loadDownloadStats() {
+            try {
+                const response = await fetch('downloads.json?t=' + Date.now());
+                const data = await response.json();
+                globalDownloadStats = data;
+                updateDownloadStats();
+            } catch (error) {
+                // Fallback to local storage if server fails
+                updateDownloadStats();
+            }
+        }
+        
+        // Sync local stats with server (simplified - just update display)
+        function syncDownloadStats(localStats) {
+            // In a real implementation, you would send this to a server
+            // For now, we'll just update the global stats
+            const totalDownloads = Object.values(localStats).reduce((sum, count) => sum + count, 0);
+            globalDownloadStats.totalDownloads = totalDownloads;
+            globalDownloadStats.bookDownloads = localStats;
+            updateDownloadStats();
+        }
+        
+        // Google Forms configuration
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeuB9ORvj-fjBar5KbmIddJRygD7gFFvA3GMqri7jT71d6N3Q/formResponse';
+        const GOOGLE_FORM_ENTRY_IDS = {
+            name: 'entry.1068216033',    // Ad alanının entry ID'si
+            message: 'entry.93821871'    // Mesaj alanının entry ID'si
+        };
+        
+        // Feedback system functions
+        function openFeedbackModal() {
+            document.getElementById('feedbackModal').style.display = 'block';
+        }
+        
+        function closeFeedbackModal() {
+            document.getElementById('feedbackModal').style.display = 'none';
+            
+            // Reset modal content to original form
+            const modal = document.getElementById('feedbackModal');
+            const modalBody = modal.querySelector('.modal-body');
+            modalBody.innerHTML = `
+                <p id="modalMessage">Bu sistemi geliştirmek istediğinizi belirtmek için aşağıdaki formu doldurabilirsiniz. Önerileriniz local olarak saklanacak ve geliştirici tarafından değerlendirilecektir.</p>
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label for="feedbackName" id="nameLabel">İsim (İsteğe Bağlı):</label>
+                        <input type="text" id="feedbackName" placeholder="İsminizi yazabilirsiniz...">
+                    </div>
+                    <div class="form-group">
+                        <label for="feedbackMessage" id="messageLabel">Geliştirme Önerisi:</label>
+                        <textarea id="feedbackMessage" rows="4" placeholder="Sistemi nasıl geliştirebileceğimizi düşünüyorsunuz? Hangi özellikler eklenmeli?"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" onclick="closeFeedbackModal()" class="btn-cancel">İptal</button>
+                        <button type="submit" class="btn-submit">Gönder</button>
+                    </div>
+                </form>
+            `;
+            
+            // Re-attach form event listener
+            $('#feedbackForm').off('submit').on('submit', function(e) {
+                e.preventDefault();
+                
+                const name = $('#feedbackName').val().trim();
+                const message = $('#feedbackMessage').val().trim();
+                
+                if (!message) {
+                    alert('Lütfen geliştirme önerinizi yazın.');
+                    return;
+                }
+                
+                const feedbackData = {
+                    timestamp: new Date().toISOString(),
+                    name: name || 'Anonim',
+                    message: message
+                };
+                
+                // Google Forms'a gönder
+                const success = submitToGoogleForms(feedbackData);
+                
+                if (success) {
+                    // Modal content will be replaced by submitToGoogleForms
+                }
+            });
+            
+            // Update language
+            switchLanguage(currentLanguage);
+        }
+        
+        // Google Forms submission with automatic POST attempt
+        function submitToGoogleForms(feedbackData) {
+            const data = {
+                [GOOGLE_FORM_ENTRY_IDS.name]: feedbackData.name || 'Anonim',
+                [GOOGLE_FORM_ENTRY_IDS.message]: feedbackData.message
+            };
+            
+            // Try automatic submission first
+            const formData = new FormData();
+            Object.keys(data).forEach(key => {
+                formData.append(key, data[key]);
+            });
+            
+            // Attempt direct POST to Google Forms
+            fetch(GOOGLE_FORM_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            })
+            .then(() => {
+                showSuccessMessage();
+            })
+            .catch((error) => {
+                showFallbackMethod(data);
+            });
+            
+            return true;
+        }
+        
+        // Show success message
+        function showSuccessMessage() {
+            const modal = document.getElementById('feedbackModal');
+            const modalBody = modal.querySelector('.modal-body');
+            
+            modalBody.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        <i class="fas fa-check-circle" style="font-size: 48px; color: #10b981; margin-bottom: 15px;"></i>
+                    </div>
+                    <h4 style="margin-bottom: 15px; color: #1e293b;">✅ Feedback Gönderildi!</h4>
+                    <p style="margin-bottom: 20px; color: #64748b; line-height: 1.6;">
+                        Feedback'iniz başarıyla Google Forms'a gönderildi.<br>
+                        Teşekkür ederiz!
+                    </p>
+                    <button onclick="closeFeedbackModal()" class="btn-submit" style="width: 100%;">
+                        <i class="fas fa-check"></i> Tamam
+                    </button>
+                </div>
+            `;
+        }
+        
+        // Show fallback method (pre-filled URL)
+        function showFallbackMethod(data) {
+            const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSeuB9ORvj-fjBar5KbmIddJRygD7gFFvA3GMqri7jT71d6N3Q/viewform';
+            const params = new URLSearchParams();
+            
+            // Add pre-filled data to URL
+            Object.keys(data).forEach(key => {
+                params.append(key, data[key]);
+            });
+            
+            const fullUrl = `${formUrl}?${params.toString()}`;
+            
+            const modal = document.getElementById('feedbackModal');
+            const modalBody = modal.querySelector('.modal-body');
+            
+            modalBody.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        <i class="fas fa-external-link-alt" style="font-size: 48px; color: #3b82f6; margin-bottom: 15px;"></i>
+                    </div>
+                    <h4 style="margin-bottom: 15px; color: #1e293b;">Feedback'iniz Hazır!</h4>
+                    <p style="margin-bottom: 20px; color: #64748b; line-height: 1.6;">
+                        Otomatik gönderim başarısız oldu. Verileriniz Google Forms'da önceden doldurulmuş durumda.<br>
+                        Yeni sekmede açılacak ve orada gönderebilirsiniz.
+                    </p>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button onclick="closeFeedbackModal()" class="btn-cancel">İptal</button>
+                        <button onclick="window.open('${fullUrl}', '_blank'); closeFeedbackModal();" class="btn-submit">
+                            <i class="fas fa-external-link-alt"></i> Google Forms'da Aç
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('feedbackModal');
+            if (event.target === modal) {
+                closeFeedbackModal();
+            }
+        }
+
+        // Function to populate date filter with available dates
+        function populateDateFilter() {
+            const dateFilter = document.getElementById('dateFilter');
+            const dates = new Set();
+            
+            // Get all unique dates from books data (Eklenme column)
+            booksData.forEach(book => {
+                if (book.date && book.date !== '-' && book.date !== '') {
+                    dates.add(book.date);
+                }
+            });
+            
+            // Sort dates in descending order
+            const sortedDates = Array.from(dates).sort((a, b) => {
+                // Convert dates to comparable format (dd.mm.yyyy)
+                const dateA = a.split('.').reverse().join('');
+                const dateB = b.split('.').reverse().join('');
+                return dateB.localeCompare(dateA);
+            });
+            
+            // Add date options to select
+            sortedDates.forEach(date => {
+                const option = document.createElement('option');
+                option.value = date;
+                option.textContent = date;
+                dateFilter.appendChild(option);
+            });
+        }
+
+        $(document).ready(function() {
+            // Load data directly from embedded JavaScript
+            populateTable();
+            populateDateFilter();
+            initializeDataTable();
+            
+            // Load download stats from server
+            loadDownloadStats();
+            
+            
+            // Feedback form submission
+            $('#feedbackForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                const name = $('#feedbackName').val().trim();
+                const message = $('#feedbackMessage').val().trim();
+                
+                if (!message) {
+                    alert('Lütfen geliştirme önerinizi yazın.');
+                    return;
+                }
+                
+                const feedbackData = {
+                    timestamp: new Date().toISOString(),
+                    name: name || 'Anonim',
+                    message: message
+                };
+                
+                // Google Forms'a gönder
+                const success = submitToGoogleForms(feedbackData);
+                
+                if (success) {
+                    closeFeedbackModal();
+                }
+            });
+        });
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick="switchLanguage('${lang}')"]`).classList.add('active');
+            
+            // Update text content
+            const t = translations[lang];
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+            document.getElementById('mainTitle').textContent = t.title;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            document.getElementById('thNo').textContent = t.no;
+            document.getElementById('thTitle').textContent = t.titleCol;
+            document.getElementById('thAuthor').textContent = t.author;
+            document.getElementById('thYear').textContent = t.year;
+            document.getElementById('thPages').textContent = t.pages;
+            document.getElementById('thDate').textContent = t.date;
+            document.getElementById('thDescription').textContent = t.description;
+            document.getElementById('thDownload').textContent = t.download;
+            document.getElementById('btnCsv').textContent = t.csvDownload;
+            document.getElementById('btnPdf').textContent = t.pdfDownload;
+            
+            // Update date filter
+            document.querySelector('#dateFilter option[value=""]').textContent = t.allDates;
+            document.getElementById('dateFilterLabel').textContent = t.dateLabel;
+            
+            // Update footer texts
+            document.getElementById('totalDownloadsText').textContent = t.totalDownloads;
+            document.getElementById('totalBooksText').textContent = t.totalBooks;
+            document.getElementById('lastUpdateText').textContent = t.lastUpdate;
+            document.getElementById('feedbackText').textContent = t.feedbackText;
+            
+            // Update modal texts
+            document.getElementById('modalTitle').textContent = t.modalTitle;
+            document.getElementById('modalMessage').textContent = t.modalMessage;
+            document.getElementById('nameLabel').textContent = t.nameLabel;
+            document.getElementById('messageLabel').textContent = t.messageLabel;
+            document.getElementById('feedbackName').placeholder = t.namePlaceholder;
+            document.getElementById('feedbackMessage').placeholder = t.messagePlaceholder;
+            document.querySelector('.btn-cancel').textContent = t.cancelBtn;
+            document.querySelector('.btn-submit').textContent = t.submitBtn;
+            
+            // Update book descriptions
+            updateBookDescriptions(lang);
+            
+            // Update DataTables language
+            if (window.table) {
+                window.table.destroy();
+                initializeDataTable();
+            }
+        }
+
+        function updateBookDescriptions(lang) {
+            const rows = document.querySelectorAll('#booksTableBody tr');
+            rows.forEach((row, index) => {
+                const descriptionCell = row.querySelector('.book-description');
+                if (descriptionCell && booksData[index]) {
+                    const book = booksData[index];
+                    if (typeof book.description === 'object') {
+                        descriptionCell.textContent = book.description[lang] || book.description.tr;
+                    }
+                }
+            });
+        }
+
+        function populateTable() {
+            const tbody = document.getElementById('booksTableBody');
+            tbody.innerHTML = '';
+
+            booksData.forEach((book, index) => {
+                const row = document.createElement('tr');
+                const description = typeof book.description === 'object' 
+                    ? book.description[currentLanguage] || book.description.tr
+                    : book.description;
+                    
+                row.innerHTML = `
+                    <td>${book.id}</td>
+                    <td class="book-title">${book.title}
+                        <span class="title-actions">
+                            <button class="btn-inspect-inline" title="İncele" onclick="downloadBookPDF(${index})">
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </span>
+                    </td>
+                    <td class="book-author">${book.author}</td>
+                    <td>${book.year}</td>
+                    <td>${book.pages}</td>
+                    <td>${book.date}</td>
+                    <td class="book-description">${description}</td>
+                    <td><button class="btn-download-single" onclick="downloadBookPDF(${index})"><i class="fas fa-download"></i></button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function initializeDataTable() {
+            // Language settings for DataTables
+            const dataTableLanguages = {
+                tr: {
+                    "decimal": ",",
+                    "thousands": ".",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sSearchPlaceholder": "Arama yapın...",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    }
+                },
+                en: {
+                    "decimal": ".",
+                    "thousands": ",",
+                    "sEmptyTable": "No data available in table",
+                    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Show _MENU_ entries",
+                    "sLoadingRecords": "Loading...",
+                    "sProcessing": "Processing...",
+                    "sSearch": "Search:",
+                    "sSearchPlaceholder": "Search...",
+                    "sZeroRecords": "No matching records found",
+                    "oPaginate": {
+                        "sFirst": "First",
+                        "sLast": "Last",
+                        "sNext": "Next",
+                        "sPrevious": "Previous"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activate to sort column ascending",
+                        "sSortDescending": ": activate to sort column descending"
+                    }
+                }
+            };
+
+            // Initialize DataTable with language support
+            window.table = $('#booksTable').DataTable({
+                "language": dataTableLanguages[currentLanguage],
+                "pageLength": 10,
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Tümü"]],
+                "order": [[ 1, "asc" ]], // Sort by book title alphabetically
+                "columnDefs": [
+                    { "orderable": false, "targets": [7] }, // Disable sorting for download column
+                    { "width": "5%", "targets": 0 }, // Book number column
+                    { "width": "25%", "targets": 1 }, // Book title column
+                    { "width": "15%", "targets": 2 }, // Author column
+                    { "width": "8%", "targets": 3 }, // Year column
+                    { "width": "8%", "targets": 4 }, // Pages column
+                    { "width": "8%", "targets": 5 }, // Date column
+                    { "width": "25%", "targets": 6 }, // Description column
+                    { "width": "6%", "targets": 7 }  // Download column
+                ],
+                "dom": 'lrtip', // Show only length, processing, table, info, pagination
+                "responsive": {
+                    "details": {
+                        "type": 'column',
+                        "target": 'tr'
+                    }
+                },
+                "autoWidth": false,
+                "scrollX": true,
+                "scrollCollapse": true,
+                "fixedColumns": {
+                    "rightColumns": 1
+                }
+            });
+
+            // Custom search functionality
+            $('#searchInput').on('keyup', function() {
+                table.search(this.value).draw();
+                // Show/hide clear button
+                const clearBtn = document.getElementById('clearSearch');
+                if (this.value.length > 0) {
+                    clearBtn.style.display = 'block';
+                } else {
+                    clearBtn.style.display = 'none';
+                }
+            });
+        }
+        
+        // Clear search function
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('clearSearch').style.display = 'none';
+            if (window.table) {
+                window.table.search('').draw();
+            }
+        }
+        
+        // Filter by date function
+        function filterByDate() {
+            const selectedDate = document.getElementById('dateFilter').value;
+            if (window.table) {
+                if (selectedDate === '') {
+                    // Show all books
+                    window.table.column(5).search('').draw();
+                } else {
+                    // Filter by date (Eklenme column)
+                    window.table.column(5).search(selectedDate).draw();
+                }
+            }
+        }
+
+        // Function to download individual PDF by book index
+        function downloadBookPDF(bookIndex) {
+            const book = booksData[bookIndex];
+            if (book && book.filename && book.filename.trim() !== '') {
+                // Increment download count
+                incrementDownloadCount(book.id);
+                
+                // Check if file exists and open PDF in new tab
+                const filePath = 'archive/' + book.filename;
+                const link = document.createElement('a');
+                link.href = filePath;
+                link.target = '_blank';
+                link.download = book.filename;
+                
+                // Try to open the file
+                try {
+                    window.open(filePath, '_blank');
+                } catch (error) {
+                    alert('Bu kitap için PDF dosyası bulunamadı: ' + book.filename);
+                }
+            } else {
+                alert('Bu kitap için PDF dosyası bulunamadı.');
+            }
+        }
+
+        // Function to download individual PDF (legacy function for compatibility)
+        function downloadPDF(filename) {
+            if (filename && filename.trim() !== '') {
+                // Open PDF in new tab from archive folder
+                window.open('archive/' + filename, '_blank');
+            } else {
+                alert('Bu kitap için PDF dosyası bulunamadı.');
+            }
+        }
+
+        // Function to download all list as CSV or PDF
+        function downloadAllList(format) {
+            if (format === 'csv') {
+                downloadCSV();
+            } else if (format === 'pdf') {
+                downloadPDF();
+            }
+        }
+        
+        function downloadCSV() {
+            let csvContent = "No,Kitap Adı,Yazar,Yıl,Sayfa,Eklenme,Açıklama\n";
+            
+            booksData.forEach(book => {
+                const no = book.id;
+                const title = book.title.replace(/,/g, ';');
+                const author = book.author.replace(/,/g, ';');
+                const year = book.year;
+                const pages = book.pages;
+                const date = book.date;
+                const descriptionText = typeof book.description === 'object' 
+                    ? book.description[currentLanguage] || book.description.tr
+                    : book.description;
+                const description = descriptionText.replace(/,/g, ';').replace(/\n/g, ' ');
+                
+                csvContent += `${no},"${title}","${author}","${year}","${pages}","${date}","${description}"\n`;
+            });
+            
+            // Create and download CSV file
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'kitap_listesi.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function downloadPDF() {
+            // Create HTML content for PDF
+            let htmlContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Kitap Listesi</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h1 { color: #333; text-align: center; margin-bottom: 30px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                        th { background-color: #333; color: white; }
+                        tr:nth-child(even) { background-color: #f2f2f2; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Kitap Koleksiyonu</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kitap Adı</th>
+                                <th>Yazar</th>
+                                <th>Yıl</th>
+                                <th>Sayfa</th>
+                                <th>Eklenme</th>
+                                <th>Açıklama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            booksData.forEach(book => {
+                const description = typeof book.description === 'object' 
+                    ? book.description[currentLanguage] || book.description.tr
+                    : book.description;
+                    
+                htmlContent += `
+                    <tr>
+                        <td>${book.id}</td>
+                        <td>${book.title}</td>
+                        <td>${book.author}</td>
+                        <td>${book.year}</td>
+                        <td>${book.pages}</td>
+                        <td>${book.date}</td>
+                        <td>${description}</td>
+                    </tr>
+                `;
+            });
+            
+            htmlContent += `
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `;
+            
+            // Open in new window for printing/saving as PDF
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(htmlContent);
+            newWindow.document.close();
+            
+            // Auto print dialog
+            setTimeout(() => {
+                newWindow.print();
+            }, 500);
+        }
+    </script>
+</body>
+</html>
