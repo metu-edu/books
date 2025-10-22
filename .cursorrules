@@ -215,6 +215,62 @@ echo "Index.html: $(grep -c '"id":' index.html)"
 4. Any changes to books.json require updates to both downloads.json and index.html
 5. Always run the synchronization check before committing changes
 
+## CRITICAL ID MANAGEMENT RULES
+**ABSOLUTELY FORBIDDEN ACTIONS:**
+
+### ❌ **NEVER DO THESE:**
+- **NEVER change existing book IDs** - they are permanent identifiers
+- **NEVER reassign IDs** that have been used before
+- **NEVER create gaps** in ID sequence (e.g., 0001, 0003, 0005)
+- **NEVER reuse IDs** that were previously assigned to other books
+- **NEVER assign new IDs** to updated versions of existing books
+
+### ✅ **ONLY ALLOWED ACTIONS:**
+- **Add new books** with next available sequential ID
+- **Update book metadata** (title, author, description) keeping SAME ID
+- **Delete books** only if removing from ALL 3 files simultaneously
+- **Fix typos** in existing book data keeping SAME ID
+
+### 🔒 **ID IMMUTABILITY RULES:**
+1. **Once assigned, an ID is PERMANENT**
+2. **If a book is updated/replaced, keep the SAME ID**
+3. **If a book is deleted, the ID becomes available for future use**
+4. **New books get the next available sequential ID**
+5. **Never skip IDs** - always use consecutive numbers
+
+### 📋 **BEFORE ANY ID CHANGES:**
+```bash
+# MANDATORY: Check current ID usage
+echo "=== CURRENT ID USAGE ==="
+jq -r '.[] | "\(.id) - \(.title)"' books.json | sort
+
+# MANDATORY: Check for gaps
+echo "=== ID GAPS CHECK ==="
+jq -r '.[] | .id' books.json | sort | awk 'BEGIN{prev=0} {curr=int($1); if(curr!=prev+1 && prev!=0) print "GAP: " prev+1 " to " curr-1; prev=curr}'
+
+# MANDATORY: Verify no duplicates
+echo "=== DUPLICATE CHECK ==="
+jq -r '.[] | .id' books.json | sort | uniq -d
+```
+
+### 🚨 **EMERGENCY ID RECOVERY:**
+If IDs get corrupted:
+1. **STOP immediately** - do not make more changes
+2. **Check git history** for last working version
+3. **Restore from backup** if available
+4. **Manually fix** one file at a time
+5. **Run synchronization check** after each fix
+6. **Test thoroughly** before committing
+
+### 📝 **ID CHANGE LOGGING:**
+If you MUST change an ID (only in extreme cases):
+1. **Document the change** in commit message
+2. **List old ID → new ID** mapping
+3. **Update ALL 3 files** simultaneously
+4. **Run full synchronization check**
+5. **Test web interface** functionality
+6. **Verify downloads.json** consistency
+
 ---
 *Last Updated: 2025-01-27*
 *Project: Digital Book Archive*
