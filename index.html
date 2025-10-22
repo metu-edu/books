@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="version" content="2025-01-15-v2">
+    <meta name="version" content="2025-10-23-v3">
     
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
@@ -796,12 +796,12 @@
                 </div>
                 <div class="stat-item">
                     <i class="fas fa-book"></i>
-                    <span id="totalBooks">28</span>
+                    <span id="totalBooks">33</span>
                     <span id="totalBooksText">Kitap</span>
                 </div>
                 <div class="stat-item">
                     <i class="fas fa-calendar"></i>
-                    <span id="lastUpdate">22.10.2025</span>
+                    <span id="lastUpdate">23.10.2025</span>
                     <span id="lastUpdateText">Son Güncelleme</span>
                 </div>
                 <div class="stat-item feedback-trigger" onclick="openFeedbackModal()">
@@ -848,7 +848,11 @@
 
     <script>
         // Books data embedded directly in JavaScript
-        const booksData = [
+        let booksData = [];
+        
+        // Load books data directly from embedded data
+        function loadBooksData() {
+            booksData = [
             {
                 "id": "0001",
                 "title": "Getting Started with AWS",
@@ -856,24 +860,18 @@
                 "year": "-",
                 "pages": "32",
                 "date": "04.08.2025",
-                "description": {
-                    "tr": "AWS'in temel servislerini tanıtan ve giriş seviyesinde resmi bir dokümantasyon.",
-                    "en": "Official documentation introducing AWS basic services for beginners."
-                },
-                "filename": "getting-started-with-aws-amazon-web-services-32-sayfa.pdf"
+                "description": "AWS'in temel servislerini tanıtan ve giriş seviyesinde resmi bir dokümantasyon.",
+                "filename": "Getting Started with AWS.pdf"
             },
             {
                 "id": "0002",
                 "title": "Beginners Guide to AWS Certification",
-                "author": "Neal Davis",
+                "author": "-",
                 "year": "2021",
                 "pages": "36",
                 "date": "04.08.2025",
-                "description": {
-                    "tr": "AWS sertifikasyon sınavına hazırlık için kavramları ve sınav sürecini özetler.",
-                    "en": "Summarizes concepts and exam process for AWS certification preparation."
-                },
-                "filename": "beginners-guide-to-aws-certification-neal-davis-2021-36-sayfa.pdf"
+                "description": "AWS sertifikasyon sınavına hazırlık için kavramları ve sınav sürecini özetler.",
+                "filename": "Beginners+Guide+to+AWS+Certification+2021.pdf"
             },
             {
                 "id": "0003",
@@ -1212,8 +1210,81 @@
                     "en": "Ryanair's flight crew operational manual and procedures for Boeing 737-700/800 aircraft."
                 },
                 "filename": "ryanair-737-700-800-flight-crew-operating-manual-2019-1952-sayfa.pdf"
+            },
+            {
+                "id": "0025",
+                "title": "AI-Assisted Coding: The Practical Guide for Software Development",
+                "author": "Michael Kofler, Bernd Öggl, Sebastian Springer",
+                "year": "2025",
+                "pages": "553",
+                "date": "23.10.2025",
+                "description": "Yazılım geliştirmede yapay zeka destekli programlama tekniklerini, modern geliştirme süreçlerinde AI araçlarının kullanımını ve kod kalitesini artırma yöntemlerini kapsamlı şekilde ele alıyor.",
+                "filename": "ai-assisted-coding-the-practical-guide-for-software-development-michael-kofler-bernd-oggl-sebastian-springer-2025.pdf"
+            },
+            {
+                "id": "0027",
+                "title": "Methods of IT Project Management Third Edition",
+                "author": "Jeffrey L. Brewer and Kevin C. Dittman",
+                "year": "2018",
+                "pages": "585",
+                "date": "23.10.2025",
+                "description": "IT proje yönetiminin metodolojik yaklaşımlarını, proje yaşam döngüsü yönetimini ve teknoloji projelerinde başarı için gerekli teknikleri kapsamlı şekilde sunuyor. Purdue University Press tarafından yayınlanmıştır.",
+                "filename": "methods-of-it-project-management-third-edition-jeffrey-l-brewer-kevin-c-dittman-2018.pdf"
+            },
+            {
+                "id": "0028",
+                "title": "The Cybersecurity Control Playbook: From Fundamentals to Advanced Strategies",
+                "author": "Jason Edwards",
+                "year": "2025",
+                "pages": "808",
+                "date": "23.10.2025",
+                "description": "Siber güvenlik kontrollerinin temellerinden ileri seviye stratejilere kadar kapsamlı bir rehber. Kurumsal güvenlik mimarisi, risk yönetimi ve tehdit analizi konularını detaylı şekilde ele alıyor. BareMetalCyber ve Wiley tarafından yayınlanmıştır.",
+                "filename": "the-cybersecurity-control-playbook-from-fundamentals-to-advanced-strategies-jason-edwards-2025.pdf"
+            },
+            {
+                "id": "0029",
+                "title": "Zero to Engineer: The Unconventional Blueprint to Securing a 6-Figure Tech Career",
+                "author": "Terry Kim",
+                "year": "2025",
+                "pages": "235",
+                "date": "23.10.2025",
+                "description": "Teknoloji sektöründe mühendislik kariyerine geçiş için geleneksel olmayan yolları, 6 haneli maaş hedeflerine ulaşma stratejilerini ve sektörde başarı için gerekli becerileri kapsamlı şekilde açıklıyor. Wiley tarafından yayınlanmıştır.",
+                "filename": "zero-to-engineer-the-unconventional-blueprint-to-securing-a-6-figure-tech-career-terry-kim-2025.pdf"
+            },
+            {
+                "id": "0030",
+                "title": "Create Your Successful Agile Project: Collaborate, Measure, Estimate, Deliver",
+                "author": "Johanna Rothman",
+                "year": "2017",
+                "pages": "401",
+                "date": "23.10.2025",
+                "description": "Agile proje yönetiminde başarılı olmak için işbirliği, ölçüm, tahmin ve teslim süreçlerini kapsamlı şekilde ele alıyor. P1.0 versiyonu ile güncel metodolojileri sunuyor.",
+                "filename": "create-your-successful-agile-project-collaborate-measure-estimate-deliver-johanna-rothman-2017.pdf"
             }
-        ];
+                ];
+            
+            populateTable();
+            populateDateFilter();
+            initializeDataTable();
+            updateStats();
+        }
+        
+        // Update statistics
+        function updateStats() {
+            // Update total books count
+            document.getElementById('totalBooks').textContent = booksData.length;
+            
+            // Update last update date (find the most recent date)
+            const dates = booksData.map(book => book.date).filter(date => date && date !== '-');
+            if (dates.length > 0) {
+                const sortedDates = dates.sort((a, b) => {
+                    const dateA = a.split('.').reverse().join('');
+                    const dateB = b.split('.').reverse().join('');
+                    return dateB.localeCompare(dateA);
+                });
+                document.getElementById('lastUpdate').textContent = sortedDates[0];
+            }
+        }
 
         // Language data
         const translations = {
@@ -1530,10 +1601,8 @@
         }
 
         $(document).ready(function() {
-            // Load data directly from embedded JavaScript
-            populateTable();
-            populateDateFilter();
-            initializeDataTable();
+            // Load books data from JSON file
+            loadBooksData();
             
             // Load download stats from server
             loadDownloadStats();

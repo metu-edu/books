@@ -7,7 +7,7 @@
     "pages": "32",
     "date": "04.08.2025",
     "description": "AWS'in temel servislerini tanıtan ve giriş seviyesinde resmi bir dokümantasyon.",
-    "filename": "Getting Started with AWS.pdf"
+    "filename": "getting-started-with-aws-amazon-web-services-32-sayfa.pdf"
   },
   {
     "id": "0002",
@@ -17,7 +17,7 @@
     "pages": "36",
     "date": "04.08.2025",
     "description": "AWS sertifikasyon sınavına hazırlık için kavramları ve sınav sürecini özetler.",
-    "filename": "Beginners+Guide+to+AWS+Certification+2021.pdf"
+    "filename": "beginners-guide-to-aws-certification-neal-davis-2021-36-sayfa.pdf"
   },
   {
     "id": "0003",
@@ -27,7 +27,7 @@
     "pages": "51",
     "date": "04.08.2025",
     "description": "Blockchain teknolojisinin mantığını, işleyişini ve kullanım senaryolarını açıklıyor.",
-    "filename": "Blockchain-dummies.pdf"
+    "filename": "blockchain-for-dummies-manav-gupta-2018-51-sayfa.pdf"
   },
   {
     "id": "0004",
@@ -37,7 +37,7 @@
     "pages": "474",
     "date": "04.08.2025",
     "description": "Veri bilimi ve büyük veri analitiğinin yöntemlerini, araçlarını ve uygulamalarını sistematik olarak öğretiyor.",
-    "filename": "Data Science and Big Data Analytics – 474sf – EMC Education Services.pdf"
+    "filename": "data-science-and-big-data-analytics-emc-education-services-2015-474-sayfa.pdf"
   },
   {
     "id": "0005",
@@ -47,7 +47,7 @@
     "pages": "541",
     "date": "04.08.2025",
     "description": "Derin öğrenmenin matematiksel temellerini, modellerini ve pratik uygulamalarını derinlemesine ele alıyor.",
-    "filename": "Understanding Deep Learning.2025.pdf"
+    "filename": "understanding-deep-learning-simon-jd-prince-2025-541-sayfa.pdf"
   },
   {
     "id": "0006",
@@ -57,7 +57,7 @@
     "pages": "126",
     "date": "04.08.2025",
     "description": "AWS hizmetlerine yönelik pratik ders notları ve örnekler sunuyor.",
-    "filename": "AWS Tutorial.pdf"
+    "filename": "amazon-web-services-aws-tutorial-tutorials-point-2017-126-sayfa.pdf"
   },
   {
     "id": "0007",
@@ -67,7 +67,7 @@
     "pages": "249",
     "date": "04.08.2025",
     "description": "Denizcilik sektöründe siber güvenlik risklerini, tehditleri ve çözüm yaklaşımlarını inceliyor.",
-    "filename": "Maritime-Cybersecurity.pdf"
+    "filename": "maritime-cybersecurity-sanja-bauk-2025-249-sayfa.pdf"
   },
   {
     "id": "0008",
@@ -77,7 +77,7 @@
     "pages": "232",
     "date": "04.08.2025",
     "description": "Kodlama teorisinin temel kavramlarını, matematiksel temellerini ve modern uygulamalarını açıklıyor.",
-    "filename": ""
+    "filename": "coding-theory-essentials-dinesh-harkut-kashmira-kasat-2023-154-sayfa.pdf"
   },
   {
     "id": "0009",
@@ -87,7 +87,7 @@
     "pages": "216",
     "date": "04.08.2025",
     "description": "Derin öğrenmenin farklı alanlardaki (görüntü, metin, sinyal vb.) uygulamalarına örnekler sunuyor.",
-    "filename": ""
+    "filename": "deep-learning-applications-pier-luigi-mazzeo-paolo-spagnolo-2021-216-sayfa.pdf"
   },
   {
     "id": "0010",
@@ -97,7 +97,7 @@
     "pages": "370",
     "date": "04.08.2025",
     "description": "Etik hackerlık yöntemlerini, güvenlik testlerini ve siber güvenlikte etik sınırları anlatıyor.",
-    "filename": "vdoc.pub_ethical-hacking.pdf"
+    "filename": "ethical-hacking-alana-maurushat-2019-370-sayfa.pdf"
   },
   {
     "id": "0011",
@@ -107,7 +107,7 @@
     "pages": "201",
     "date": "04.08.2025",
     "description": "Büyük ölçekli veri merkezlerinin mimarisini ve bulut çağında tasarım prensiplerini açıklıyor.",
-    "filename": "The Datacenter as a Computer - Designing Warehouse-Scale Machines, Third Edition – 2019, 201SF.pdf"
+    "filename": "datacenter-as-computer-designing-warehouse-scale-machines-luiz-andre-barroso-2019-201-sayfa.pdf"
   },
   {
     "id": "0012",
@@ -117,7 +117,7 @@
     "pages": "207",
     "date": "04.08.2025",
     "description": "NGINX ile web sunucusu, load balancing ve performans optimizasyonu için pratik tarifler sunuyor.",
-    "filename": "NGINX_Cookbook-final.pdf"
+    "filename": "nginx-cookbook-derek-dejonghe-2024-207-sayfa.pdf"
   },
   {
     "id": "0013",
@@ -127,7 +127,7 @@
     "pages": "109",
     "date": "04.08.2025",
     "description": "Büyük dil modellerinin nasıl çalıştığını, kullanım alanlarını ve sınırlarını anlatıyor.",
-    "filename": "Understanding Large Language Models – jENNY kUNZ- 109SF- 2024.PDF"
+    "filename": "understanding-large-language-models-jenny-kunz-2024-109-sayfa.pdf"
   },
   {
     "id": "0014",
@@ -137,7 +137,7 @@
     "pages": "507",
     "date": "04.08.2025",
     "description": "C++ ile paralel programlama için Intel'in TBB kütüphanesini kapsamlı biçimde öğretiyor.",
-    "filename": "Today's TBB C++ Parallel Programming with Threading Building Blocks, Second Edition.pdf"
+    "filename": "todays-tbb-cpp-parallel-programming-threading-building-blocks-michael-voss-2025-507-sayfa.pdf"
   },
   {
     "id": "0015",
@@ -147,7 +147,7 @@
     "pages": "161",
     "date": "04.08.2025",
     "description": "Makine öğrenmesinin finans piyasalarındaki veri analizi ve öngörü süreçlerine uygulanışını inceliyor.",
-    "filename": "Financial Machine Learning Bryan T. Kelly and Dacheng Xiu JULY 2023.pdf"
+    "filename": "financial-machine-learning-bryan-kelly-dacheng-xiu-2023-161-sayfa.pdf"
   },
   {
     "id": "0016",
@@ -157,7 +157,7 @@
     "pages": "340",
     "date": "04.08.2025",
     "description": "Go programlama dilini gerçek dünyadaki projelerde kullanılacak en iyi pratiklerle öğretiyor.",
-    "filename": "vdoc.pub_learning-go-programming.pdf"
+    "filename": "learning-go-idiomatic-approach-real-world-go-programming-vladimir-vivien-2016-340-sayfa.pdf"
   },
   {
     "id": "0017",
@@ -167,7 +167,7 @@
     "pages": "508",
     "date": "04.08.2025",
     "description": "ReactJS ile kullanıcı arayüzü geliştirmeyi adım adım anlatan giriş seviyesi bir kaynak.",
-    "filename": "Beginning ReactJS Foundations Building User Interfaces with ReactJS An Approachable Guide Chris Minnick.pdf"
+    "filename": "beginning-reactjs-foundations-building-user-interfaces-chris-minnick-2022-508-sayfa.pdf"
   },
   {
     "id": "0018",
@@ -177,7 +177,7 @@
     "pages": "-",
     "date": "04.08.2025",
     "description": "Go programlama dilini örneklerle öğreten pratik bir kaynak.",
-    "filename": "Go Programming By Example.pdf"
+    "filename": "go-programming-by-example-agus-kurniawan-2015-165-sayfa.pdf"
   },
   {
     "id": "0019",
@@ -187,7 +187,7 @@
     "pages": "-",
     "date": "04.08.2025",
     "description": "Blockchain teknolojisini anlamak için en kolay ve kapsamlı rehber.",
-    "filename": "vdoc.pub_blockchain-easiest-ultimate-guide-to-understand-blockchain.pdf"
+    "filename": "blockchain-easiest-ultimate-guide-to-understand-blockchain-jared-norton-2016-41-sayfa.pdf"
   },
   {
     "id": "0020",
@@ -197,7 +197,7 @@
     "pages": "-",
     "date": "04.08.2025",
     "description": "Oyun programlama için tasarım desenleri ve en iyi pratikler.",
-    "filename": "vdoc.pub_game-programming-patterns.pdf"
+    "filename": "game-programming-patterns-robert-nystrom-2014-380-sayfa.pdf"
   },
   {
     "id": "0021",
@@ -207,17 +207,7 @@
     "pages": "-",
     "date": "04.08.2025",
     "description": "AWS üzerinde DevOps uygulamalarını gerçekleştirme rehberi.",
-    "filename": "vdoc.pub_implementing-devops-on-aws.pdf"
-  },
-  {
-    "id": "0022",
-    "title": "Learning Amazon Web Services (AWS)",
-    "author": "-",
-    "year": "-",
-    "pages": "-",
-    "date": "04.08.2025",
-    "description": "AWS temellerini öğrenmek için uygulamalı rehber.",
-    "filename": "vdoc.pub_learning-amazon-web-services-aws-a-hands-on-guide-to-the-fundamentals-of-aws-cloud.epub"
+    "filename": "implementing-devops-on-aws-veselin-kantsev-2017-251-sayfa.pdf"
   },
   {
     "id": "0023",
@@ -227,16 +217,116 @@
     "pages": "-",
     "date": "04.08.2025",
     "description": "DevOps pratiklerini gerçek projelerde uygulama rehberi.",
-    "filename": "vdoc.pub_practical-devops.pdf"
+    "filename": "practical-devops-joakim-verona-2016-240-sayfa.pdf"
   },
   {
-    "id": "0024",
-    "title": "A Quick Guide to C# with Unity",
-    "author": "-",
-    "year": "-",
-    "pages": "-",
-    "date": "04.08.2025",
-    "description": "Unity ile C# programlama için hızlı başlangıç rehberi.",
-    "filename": "A Quick Guide to C# with Unity.pdf"
+    "id": "0025",
+    "title": "AI-Assisted Coding: The Practical Guide for Software Development",
+    "author": "Michael Kofler, Bernd Öggl, Sebastian Springer",
+    "year": "2025",
+    "pages": "553",
+    "date": "23.10.2025",
+    "description": "Yazılım geliştirmede yapay zeka destekli programlama tekniklerini, modern geliştirme süreçlerinde AI araçlarının kullanımını ve kod kalitesini artırma yöntemlerini kapsamlı şekilde ele alıyor.",
+    "filename": "ai-assisted-coding-the-practical-guide-for-software-development-michael-kofler-bernd-oggl-sebastian-springer-2025.pdf"
+  },
+  {
+    "id": "0027",
+    "title": "Methods of IT Project Management Third Edition",
+    "author": "Jeffrey L. Brewer and Kevin C. Dittman",
+    "year": "2018",
+    "pages": "585",
+    "date": "23.10.2025",
+    "description": "IT proje yönetiminin metodolojik yaklaşımlarını, proje yaşam döngüsü yönetimini ve teknoloji projelerinde başarı için gerekli teknikleri kapsamlı şekilde sunuyor. Purdue University Press tarafından yayınlanmıştır.",
+    "filename": "methods-of-it-project-management-third-edition-jeffrey-l-brewer-kevin-c-dittman-2018.pdf"
+  },
+  {
+    "id": "0028",
+    "title": "The Cybersecurity Control Playbook: From Fundamentals to Advanced Strategies",
+    "author": "Jason Edwards",
+    "year": "2025",
+    "pages": "808",
+    "date": "23.10.2025",
+    "description": "Siber güvenlik kontrollerinin temellerinden ileri seviye stratejilere kadar kapsamlı bir rehber. Kurumsal güvenlik mimarisi, risk yönetimi ve tehdit analizi konularını detaylı şekilde ele alıyor. BareMetalCyber ve Wiley tarafından yayınlanmıştır.",
+    "filename": "the-cybersecurity-control-playbook-from-fundamentals-to-advanced-strategies-jason-edwards-2025.pdf"
+  },
+  {
+    "id": "0029",
+    "title": "Zero to Engineer: The Unconventional Blueprint to Securing a 6-Figure Tech Career",
+    "author": "Terry Kim",
+    "year": "2025",
+    "pages": "235",
+    "date": "23.10.2025",
+    "description": "Teknoloji sektöründe mühendislik kariyerine geçiş için geleneksel olmayan yolları, 6 haneli maaş hedeflerine ulaşma stratejilerini ve sektörde başarı için gerekli becerileri kapsamlı şekilde açıklıyor. Wiley tarafından yayınlanmıştır.",
+    "filename": "zero-to-engineer-the-unconventional-blueprint-to-securing-a-6-figure-tech-career-terry-kim-2025.pdf"
+  },
+  {
+    "id": "0030",
+    "title": "Create Your Successful Agile Project: Collaborate, Measure, Estimate, Deliver",
+    "author": "Johanna Rothman",
+    "year": "2017",
+    "pages": "401",
+    "date": "23.10.2025",
+    "description": "Agile proje yönetiminde başarılı olmak için işbirliği, ölçüm, tahmin ve teslim süreçlerini kapsamlı şekilde ele alıyor. P1.0 versiyonu ile güncel metodolojileri sunuyor.",
+    "filename": "create-your-successful-agile-project-collaborate-measure-estimate-deliver-johanna-rothman-2017.pdf"
+  },
+  {
+    "id": "0031",
+    "title": "Head First HTML and CSS",
+    "author": "Elisabeth Robson and Eric Freeman",
+    "year": "2006",
+    "pages": "706",
+    "date": "23.10.2025",
+    "description": "HTML ve CSS öğrenmek için görsel ve interaktif yaklaşımla hazırlanmış kapsamlı rehber.",
+    "filename": "head-first-html-css-elisabeth-robson-eric-freeman-2006-706-sayfa.pdf"
+  },
+  {
+    "id": "0032",
+    "title": "Head First PMP",
+    "author": "Jennifer Greene and Andrew Stellman",
+    "year": "2009",
+    "pages": "833",
+    "date": "23.10.2025",
+    "description": "PMP sertifikasyon sınavına hazırlık için görsel ve pratik yaklaşımla hazırlanmış rehber.",
+    "filename": "head-first-pmp-jennifer-greene-andrew-stellman-2009-833-sayfa.pdf"
+  },
+  {
+    "id": "0033",
+    "title": "Head First SQL",
+    "author": "Lynn Beighley",
+    "year": "2007",
+    "pages": "586",
+    "date": "23.10.2025",
+    "description": "SQL öğrenmek için görsel ve interaktif yaklaşımla hazırlanmış kapsamlı rehber.",
+    "filename": "head-first-sql-lynn-beighley-2007-586-sayfa.pdf"
+  },
+  {
+    "id": "0034",
+    "title": "Learning C# by Developing Games with Unity 3D",
+    "author": "Terry Norton",
+    "year": "2013",
+    "pages": "127",
+    "date": "23.10.2025",
+    "description": "Unity 3D ile oyun geliştirerek C# programlama dilini öğreten pratik rehber.",
+    "filename": "learning-csharp-by-developing-games-with-unity-3d-terry-norton-2013-127-sayfa.pdf"
+  },
+  {
+    "id": "0035",
+    "title": "Project Management Institute PMBOK Guide",
+    "author": "Project Management Institute",
+    "year": "2021",
+    "pages": "370",
+    "date": "23.10.2025",
+    "description": "Proje yönetimi bilgi alanları ve süreçlerini kapsamlı şekilde ele alan resmi PMI rehberi.",
+    "filename": "project-management-institute-pmbok-guide-2021-370-sayfa.pdf"
+  },
+  {
+    "id": "0036",
+    "title": "Ryanair 737-700/800 Flight Crew Operating Manual",
+    "author": "Ryanair",
+    "year": "2019",
+    "pages": "1952",
+    "date": "23.10.2025",
+    "description": "Ryanair'in Boeing 737-700/800 uçakları için hazırladığı kapsamlı uçuş ekibi operasyon el kitabı.",
+    "filename": "ryanair-737-700-800-flight-crew-operating-manual-2019-1952-sayfa.pdf"
   }
 ]
