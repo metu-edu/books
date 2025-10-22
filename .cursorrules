@@ -1,0 +1,185 @@
+# Cursor Rules for Books Archive Project
+
+## Project Overview
+This is a digital book archive project containing technical books in PDF format with metadata management through JSON files.
+
+## File Structure Rules
+
+### Core Files
+- `books.json` - Main book metadata database (DO NOT DELETE)
+- `downloads.json` - Download tracking system (DO NOT DELETE)
+- `index.html` - Web interface (DO NOT DELETE)
+- `archive/` - PDF storage directory (DO NOT DELETE)
+
+### JSON Data Integrity
+- **CRITICAL**: Always maintain ID consistency between `books.json` and `downloads.json`
+- **IMMUTABLE IDs**: Book IDs are UNIQUE and IMMUTABLE - NEVER change existing IDs
+- Book IDs must be 4-digit format (0001, 0002, etc.)
+- Each ID can only be used ONCE in the entire system
+- Never delete entries from `books.json` without updating `downloads.json`
+- Always validate JSON syntax before saving
+- **ID VERSIONING RULE**: If a book is updated/replaced, keep the SAME ID, never assign a new one
+
+## Book Metadata Standards
+
+### Required Fields
+- `id`: 4-digit string (0001-9999)
+- `title`: Book title (exact as filename)
+- `author`: Author name or "-" if unknown
+- `year`: Publication year or "-" if unknown
+- `pages`: Page count or "-" if unknown
+- `date`: Archive date (DD.MM.YYYY format)
+- `description`: Turkish description (2-3 sentences)
+- `filename`: PDF filename (must match archive file)
+
+### Description Guidelines
+- Write in Turkish
+- 2-3 sentences maximum
+- Focus on book's main purpose and target audience
+- Include key topics covered
+- Avoid marketing language
+- Be specific about technical content
+
+### Author Field Rules
+- Use full names when available
+- For multiple authors: "Author1, Author2, Author3"
+- Use "-" only when author is completely unknown
+- Include institutional authors (e.g., "Amazon Web Services")
+
+## File Naming Conventions
+
+### PDF Files
+- Format: `{title-kebab-case}-{author-lastname}-{year}-{pages}-sayfa.pdf`
+- Use lowercase with hyphens
+- Include year and page count
+- Example: `getting-started-with-aws-amazon-web-services-32-sayfa.pdf`
+
+### JSON Updates
+- Always backup before major changes
+- Update `lastUpdated` field in `downloads.json`
+- Maintain chronological order in `books.json`
+
+## Code Quality Rules
+
+### JSON Validation
+- Always validate JSON syntax
+- Check for missing commas, brackets
+- Ensure proper UTF-8 encoding
+- Test with JSON linter before committing
+
+### Data Consistency Checks
+- Verify all books in `books.json` have corresponding PDF in `archive/`
+- Ensure all IDs in `downloads.json` exist in `books.json`
+- Check filename matches between JSON and actual file
+- Validate date formats (DD.MM.YYYY)
+
+## Turkish Language Rules
+
+### Descriptions
+- Use proper Turkish grammar
+- Avoid English technical terms when Turkish equivalents exist
+- Use "kitap", "rehber", "kaynak" for book types
+- Include target audience (giriş seviyesi, ileri seviye, etc.)
+
+### Technical Terms
+- "Yapay zeka" instead of "AI"
+- "Makine öğrenmesi" instead of "machine learning"
+- "Siber güvenlik" instead of "cybersecurity"
+- "Veri bilimi" instead of "data science"
+
+## Error Prevention
+
+### Before Making Changes
+1. Read current file content
+2. Backup important data
+3. Validate JSON syntax
+4. Check ID consistency and uniqueness
+5. Verify file existence
+6. **NEVER change existing IDs** - they are permanent identifiers
+
+### Common Mistakes to Avoid
+- **NEVER change existing book IDs** - they are permanent
+- Don't use English descriptions
+- Don't skip author field validation
+- Don't break JSON structure
+- Don't delete files without updating JSON
+- Don't use inconsistent date formats
+- Don't reuse IDs that have been used before
+- Don't assign new IDs to updated versions of existing books
+
+## Archive Management
+
+### Adding New Books
+1. Add PDF to `archive/` directory
+2. **Assign NEW unique ID** (next available 4-digit number)
+3. Update `books.json` with new entry
+4. Add corresponding ID to `downloads.json`
+5. Verify filename consistency
+6. Write proper Turkish description
+7. **Verify ID uniqueness** across entire system
+
+### Removing Books
+1. Remove from `books.json`
+2. Remove from `downloads.json`
+3. Delete PDF from `archive/`
+4. Update any references
+5. **IMPORTANT**: Once removed, the ID becomes available for future use
+6. **CRITICAL**: Never reuse IDs that were previously assigned to other books
+
+## Quality Assurance
+
+### Regular Checks
+- Validate all JSON files
+- Check file existence for all books
+- **Verify ID uniqueness** across all files
+- **Check for duplicate IDs** in books.json and downloads.json
+- Verify description quality
+- Ensure consistent formatting
+- Test web interface functionality
+
+### Description Quality Standards
+- Minimum 20 words
+- Maximum 50 words
+- Clear and informative
+- Proper Turkish grammar
+- Technical accuracy
+
+## Development Guidelines
+
+### When Working with This Project
+- Always read existing data before making changes
+- Maintain backward compatibility
+- Test changes with small datasets first
+- Document any major structural changes
+- Keep descriptions concise but informative
+
+### Performance Considerations
+- Large JSON files may need pagination
+- Consider file size limits for web interface
+- Optimize for fast loading
+- Maintain search functionality
+
+## Emergency Procedures
+
+### If JSON Gets Corrupted
+1. Check git history for last working version
+2. Restore from backup if available
+3. Manually reconstruct from archive files
+4. Validate all entries before committing
+
+### If Files Are Missing
+1. Check archive directory
+2. Verify filename matches
+3. Re-download if necessary
+4. Update JSON accordingly
+
+## Security Notes
+- Never commit API keys or sensitive data
+- Keep archive files in secure location
+- Regular backups recommended
+- Monitor file access logs
+
+---
+*Last Updated: 2025-01-27*
+*Project: Digital Book Archive*
+*Language: Turkish/English*
