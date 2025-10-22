@@ -179,6 +179,42 @@ This is a digital book archive project containing technical books in PDF format 
 - Regular backups recommended
 - Monitor file access logs
 
+## CRITICAL SYNCHRONIZATION CHECK
+**MANDATORY**: Before any changes, verify these 3 files are synchronized:
+
+```bash
+# Check ID consistency across all files
+echo "=== BOOKS.JSON ID'LER ===" && jq -r '.[] | .id' books.json | sort
+echo "=== DOWNLOADS.JSON ID'LER ===" && jq -r '.bookDownloads | keys[]' downloads.json | sort  
+echo "=== INDEX.HTML ID'LER ===" && grep -o '"id": "[^"]*"' index.html | sed 's/"id": "//g' | sed 's/"//g' | sort
+
+# Check for duplicate IDs
+echo "=== TEKRAR EDEN ID KONTROLÜ ==="
+echo "Books.json:" && jq -r '.[] | .id' books.json | sort | uniq -d
+echo "Downloads.json:" && jq -r '.bookDownloads | keys[]' downloads.json | sort | uniq -d
+echo "Index.html:" && grep -o '"id": "[^"]*"' index.html | sed 's/"id": "//g' | sed 's/"//g' | sort | uniq -d
+
+# Check book counts
+echo "=== KITAP SAYILARI ==="
+echo "Books.json: $(jq 'length' books.json)"
+echo "Downloads.json: $(jq '.bookDownloads | length' downloads.json)"
+echo "Index.html: $(grep -c '"id":' index.html)"
+```
+
+**REQUIREMENTS:**
+- All 3 files must have EXACTLY the same ID list
+- All 3 files must have the same number of books
+- NO duplicate IDs in any file
+- NO missing IDs between files
+- IDs must be sequential (0001-0033, no gaps)
+
+**SYNCHRONIZATION RULES:**
+1. **books.json** is the master source of truth
+2. **downloads.json** must match books.json IDs exactly
+3. **index.html** JavaScript data must match books.json exactly
+4. Any changes to books.json require updates to both downloads.json and index.html
+5. Always run the synchronization check before committing changes
+
 ---
 *Last Updated: 2025-01-27*
 *Project: Digital Book Archive*
