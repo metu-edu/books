@@ -1269,7 +1269,11 @@
                 "pages": "652",
                 "date": "07.11.2025",
                 "description": "ATPL sınav müfredatı için meteoroloji konularını kapsamlı şekilde ele alıyor. Atmosfer yapısı, hava olayları, bulutlar, rüzgarlar ve hava tahminleri gibi konuları içeriyor.",
-                "filename": "atpl-ground-training-series-book-9-meteorology-cae-oxford-aviation-academy-2014-652-sayfa.pdf"
+                "filename": "atpl-ground-training-series-book-9-meteorology-cae-oxford-aviation-academy-2014-652-sayfa-1-398.pdf",
+                "files": [
+                    "atpl-ground-training-series-book-9-meteorology-cae-oxford-aviation-academy-2014-652-sayfa-1-398.pdf",
+                    "atpl-ground-training-series-book-9-meteorology-cae-oxford-aviation-academy-2014-652-sayfa-399-652.pdf"
+                ]
             },
             {
                 "id": "0035",
@@ -1733,21 +1737,61 @@
                     ? book.description[currentLanguage] || book.description.tr
                     : book.description;
                     
-                row.innerHTML = `
-                    <td>${book.id}</td>
-                    <td class="book-title">${book.title}
+                // Check if book has multiple files
+                const hasMultipleFiles = book.files && Array.isArray(book.files) && book.files.length > 1;
+                
+                // Generate title with links
+                let titleContent = '';
+                if (hasMultipleFiles) {
+                    // Multiple files - show title with two buttons containing "Part I" and "Part II"
+                    titleContent = `
+                        <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span>${book.title}</span>
+                            <span style="color: #64748b; font-size: 10px; font-weight: normal;">(2 Part)</span>
+                            <a href="javascript:void(0)" onclick="downloadBookPDFPart(${index}, 0)" style="color: #3b82f6; text-decoration: none; font-weight: 500; font-size: 11px; padding: 4px 8px; border: 1px solid #3b82f6; border-radius: 4px; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.background='#3b82f6'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='#3b82f6';" title="Part I">Part I</a>
+                            <a href="javascript:void(0)" onclick="downloadBookPDFPart(${index}, 1)" style="color: #3b82f6; text-decoration: none; font-weight: 500; font-size: 11px; padding: 4px 8px; border: 1px solid #3b82f6; border-radius: 4px; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.background='#3b82f6'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='#3b82f6';" title="Part II">Part II</a>
+                        </span>
+                    `;
+                } else {
+                    // Single file - show normal title with inspect button
+                    titleContent = `
+                        ${book.title}
                         <span class="title-actions">
                             <button class="btn-inspect-inline" title="İncele" onclick="downloadBookPDF(${index})">
                                 <i class="fas fa-external-link-alt"></i>
                             </button>
                         </span>
-                    </td>
+                    `;
+                }
+                
+                // Generate download buttons
+                let downloadButtons = '';
+                if (hasMultipleFiles) {
+                    // Multiple files - show two buttons with "I" and "II" text only
+                    downloadButtons = `
+                        <div style="display: flex; gap: 4px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                            <button class="btn-download-single" onclick="downloadBookPDFPart(${index}, 0)" title="Part I" style="padding: 4px 8px; font-size: 11px; font-weight: 500; white-space: nowrap;">
+                                I
+                            </button>
+                            <button class="btn-download-single" onclick="downloadBookPDFPart(${index}, 1)" title="Part II" style="padding: 4px 8px; font-size: 11px; font-weight: 500; white-space: nowrap;">
+                                II
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    // Single file - show one button
+                    downloadButtons = `<button class="btn-download-single" onclick="downloadBookPDF(${index})"><i class="fas fa-download"></i></button>`;
+                }
+                
+                row.innerHTML = `
+                    <td>${book.id}</td>
+                    <td class="book-title">${titleContent}</td>
                     <td class="book-author">${book.author}</td>
                     <td>${book.year}</td>
                     <td>${book.pages}</td>
                     <td>${book.date}</td>
                     <td class="book-description">${description}</td>
-                    <td><button class="btn-download-single" onclick="downloadBookPDF(${index})"><i class="fas fa-download"></i></button></td>
+                    <td>${downloadButtons}</td>
                 `;
                 tbody.appendChild(row);
             });
@@ -1881,18 +1925,26 @@
         // Function to download individual PDF by book index
         function downloadBookPDF(bookIndex) {
             const book = booksData[bookIndex];
-            if (book && book.filename && book.filename.trim() !== '') {
-                // Increment download count
+            if (!book) {
+                alert('Bu kitap için PDF dosyası bulunamadı.');
+                return;
+            }
+            
+            // Check if book has multiple files
+            if (book.files && Array.isArray(book.files) && book.files.length > 0) {
+                // If multiple files, open the first one
+                const filename = book.files[0];
                 incrementDownloadCount(book.id);
-                
-                // Check if file exists and open PDF in new tab
+                const filePath = 'archive/' + filename;
+                try {
+                    window.open(filePath, '_blank');
+                } catch (error) {
+                    alert('Bu kitap için PDF dosyası bulunamadı: ' + filename);
+                }
+            } else if (book.filename && book.filename.trim() !== '') {
+                // Single file
+                incrementDownloadCount(book.id);
                 const filePath = 'archive/' + book.filename;
-                const link = document.createElement('a');
-                link.href = filePath;
-                link.target = '_blank';
-                link.download = book.filename;
-                
-                // Try to open the file
                 try {
                     window.open(filePath, '_blank');
                 } catch (error) {
@@ -1900,6 +1952,25 @@
                 }
             } else {
                 alert('Bu kitap için PDF dosyası bulunamadı.');
+            }
+        }
+        
+        // Function to download specific part of a book with multiple files
+        function downloadBookPDFPart(bookIndex, partIndex) {
+            const book = booksData[bookIndex];
+            if (!book || !book.files || !Array.isArray(book.files) || partIndex >= book.files.length) {
+                alert('Bu bölüm için PDF dosyası bulunamadı.');
+                return;
+            }
+            
+            const filename = book.files[partIndex];
+            incrementDownloadCount(book.id);
+            const filePath = 'archive/' + filename;
+            
+            try {
+                window.open(filePath, '_blank');
+            } catch (error) {
+                alert('Bu bölüm için PDF dosyası bulunamadı: ' + filename);
             }
         }
 
